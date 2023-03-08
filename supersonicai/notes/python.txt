@@ -1,0 +1,26 @@
+# --- SuperSonicAI ---
+
+	# --- Python ---
+		Requirements:
+			Interface GymRetro running in python with C++ code
+
+	
+# Ex Usage:
+int main()
+{
+	supersonicai::python::Game game;
+	game.load("SonicTheHedgehog-Genesis", "GreenHillZone.Act1");
+	
+	while (game.notDone()) {
+		Action action = Action::moveLeft();
+
+		game.step(action);
+
+		cv::Mat obs = game.observation();
+		Dict info = game.info();
+
+		game.render();
+	}
+
+	game.close();
+}

@@ -1,0 +1,28 @@
+# --- SuperSonicAI ---
+
+	# --- High Level Design ---
+	
+		# --- Libraries ---
+			Python
+			OpenCV
+			Torch
+			Guten
+			GymRetro
+		
+		# --- Modules ---
+			Python Interface:
+				Create RetroEnv
+				load game
+				load level
+				read game data:
+					obs - image
+						extract from numpy array to c array
+						then pass into an opencv mat or torch tensor
+					done - game state
+					reward - ignore this
+					info - dict of values
+				write controls (decisions):
+					list 12 bools
+
+
+		

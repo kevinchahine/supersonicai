@@ -1,0 +1,22 @@
+# --- SuperSonicAI ---
+
+# --- Model View Controller ---
+
+# --- Model ---
+	GymRetro
+	SonicTheHedgehog
+	Level
+	Python Interface
+	ML
+
+# --- View ---
+	OpenCV
+	mp4 Recorder
+	Guten
+
+# --- Controller ---
+	Agents:
+		ActorCritic
+		Replay
+		Random
+
