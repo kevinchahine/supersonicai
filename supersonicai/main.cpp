@@ -3,7 +3,11 @@
 #include <chrono>
 #include <thread>
 
+#include <opencv2/opencv.hpp>
+#include <opencv2/highgui.hpp>
+
 #include "supersonicai/game/game.h"
+#include "supersonicai/game/info.h"
 #include "supersonicai/game/level.h"
 #include "supersonicai/game/levels.h"
 
@@ -36,20 +40,54 @@ int main(int argc, char ** argv) {
 	game.reset();
 
 	supersonicai::util::Timer timer;
-	timer.expires_from_now(chrono::seconds(2));
+	timer.expires_from_now(chrono::seconds(1));
 	timer.resume();
 
+	cv::Mat cvImg = cv::Mat::zeros(cv::Size(340, 224), CV_8UC3);
+
+	int frameCounter = 0;
 	while (timer.is_not_expired()) {
-		game.render();
+		cout << "---1---" << endl;
+		//game.render();
+		cv::imshow("cv window", cvImg);
+		cout << "---2---" << endl;
+
+		frameCounter++;
+		if (frameCounter < 200) {
+		}
+		else if (frameCounter < 430) {
+			action.reset();
+			action.pushDown();
+		}
+		else {
+			action.reset();
+			action.pushRight();
+		}
+
+		cout << frameCounter << endl;
 
 		game.step(action);
 
-		supersonicai::python::Image img = game.getObs();
+		cout << "---3---" << endl;
+
+		//supersonicai::python::Image obs = game.obs();
+		//supersonicai::game::Info info = game.info();
+
+		//cout << endl << info << endl << endl;
+		cout << "---4---" << endl;
+
+		//cvImg = obs.toCV();
+		//cv::imshow("cv", cvImg);
+		//cv::waitKey(10);
 	}
+
+	//cv::imwrite("img.png", cvImg);
+
+	cv::destroyAllWindows();
 
 	cout << "Closing game...";
 	game.close();
-	cout << "Done";
+	cout << "Done" << endl;
 
 	cout << "Finalizing Python...";
 	supersonicai::python::finalize();

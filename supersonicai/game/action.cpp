@@ -11,7 +11,7 @@ namespace supersonicai
 		void Action::pushUp() { buttons[4] = 1; }
 		
 		void Action::pushRight() { buttons[7] = 1; }
-		
+
 		void Action::pushDown() { buttons[5] = 1; }
 		
 		void Action::pushLeft() { buttons[6] = 1; }

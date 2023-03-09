@@ -19,6 +19,8 @@ set(GAME
 	supersonicai/game/action.h
 	supersonicai/game/game.cpp
 	supersonicai/game/game.h
+	supersonicai/game/info.cpp
+	supersonicai/game/info.h
 	supersonicai/game/level.cpp
 	supersonicai/game/level.h
 	supersonicai/game/levels.cpp
@@ -61,6 +63,11 @@ set(VIEWS
 	supersonicai/views/none.h
 )
 
+set(VISION
+	supersonicai/vision/preprocessing.cpp
+	supersonicai/vision/preprocessing.h
+)
+
 source_group(agents FILES ${AGENTS})
 source_group(game FILES ${GAME})
 source_group(ml FILES ${ML})
@@ -69,6 +76,7 @@ source_group(notes FILES ${NOTES})
 source_group(python FILES ${PYTHON})
 source_group(util FILES ${UTIL})
 source_group(views FILES ${VIEWS})
+source_group(vision FILES ${VISION})
 
 include_directories(.)
 
@@ -88,6 +96,7 @@ add_executable(${PROJECT_NAME}
 	${PYTHON}
 	${UTIL}
 	${VIEWS}
+	${VISION}
 )
 
 set(CMAKE_CXX_STANDARD 17)												# TODO: Do we need both?

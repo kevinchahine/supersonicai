@@ -9,12 +9,12 @@ namespace supersonicai
 	namespace game
 	{
 		Game::Game() {
-			env = nullptr;
+			_env = nullptr;
 
-			obs = nullptr;
-			reward = nullptr;
-			done = nullptr;
-			info = nullptr;
+			_obs = nullptr;
+			_reward = nullptr;
+			_done = nullptr;
+			_info = nullptr;
 
 			one = PyLong_FromLong(1);
 			zero = PyLong_FromLong(0);
@@ -30,29 +30,29 @@ namespace supersonicai
 		bool Game::load(const std::string & gameName, const std::string & stageName) {
 			PyObject * retro_make = supersonicai::python::retroMakeFunc();
 
-			env = supersonicai::python::call_func(
+			_env = supersonicai::python::call_func(
 				retro_make, 
 				gameName,
 				stageName);
 
 			Py_DECREF(retro_make);
 
-			return env != nullptr;
+			return _env != nullptr;
 		}
 
 		void Game::reset() {
-			Py_XDECREF(obs);
+			Py_XDECREF(_obs);
 
-			obs = PyObject_CallMethod(env, "reset", "()");
+			_obs = PyObject_CallMethod(_env, "reset", "()");
 		}
 
 		void Game::close() {
-			//Py_XDECREF(env);
+			//Py_XDECREF(_env);
 			//
-			//Py_XDECREF(obs);
-			//Py_XDECREF(reward);
-			//Py_XDECREF(done);
-			//Py_XDECREF(info);
+			//Py_XDECREF(_obs);
+			//Py_XDECREF(_reward);
+			//Py_XDECREF(_done);
+			//Py_XDECREF(_info);
 		}
 
 		void Game::step(const Action & action) {
@@ -68,34 +68,89 @@ namespace supersonicai
 			//PyObject_Print(list, stdout, Py_PRINT_RAW);
 			//cout << endl;
 
-			// --- Call env.step() ---
-			PyObject * ret = PyObject_CallMethod(env, "step", "(O)", list);
+			// --- Call _env.step() ---
+			PyObject * ret = PyObject_CallMethod(_env, "step", "(O)", list);
 
 			// --- Extract returned data ---
-			//Py_CLEAR(obs);
-			//Py_CLEAR(reward);
-			//Py_CLEAR(done);
-			//Py_CLEAR(info);
+			//Py_CLEAR(_obs);
+			//Py_CLEAR(_reward);
+			//Py_CLEAR(_done);
+			//Py_CLEAR(_info);
 			
-			obs = PyTuple_GetItem(ret, 0);
-			reward = PyTuple_GetItem(ret, 1);
-			done = PyTuple_GetItem(ret, 2);
-			info = PyTuple_GetItem(ret, 3);
+			_obs = PyTuple_GetItem(ret, 0);
+			_reward = PyTuple_GetItem(ret, 1);
+			_done = PyTuple_GetItem(ret, 2);
+			_info = PyTuple_GetItem(ret, 3);
 			
+			//PyObject_Print(_info, stdout, Py_PRINT_RAW);
+
 			Py_XDECREF(ret);
 		}
 
 		void Game::render() {
-			PyObject_CallMethod(env, "render", "()");
+			cerr << "0x" << _env << ' ' << _env->ob_refcnt << " " << "0x" << _env->ob_type;
+			cerr << endl << "<<<";
+			PyObject_CallMethod(_env, "render", "()");
+			cerr << ">>>" << endl;
 		}
 
-		python::Image Game::getObs() const {
-			return python::Image(obs);
+		python::Image Game::obs() const {
+			return python::Image(_obs);
 		}
 
-		bool Game::isDone() const {
-
+		bool Game::done() const {
+			
 			return false;
+		}
+		
+		int dictGetLong(PyObject * dictObj, const std::string & key) {
+			PyObject * pyobj;
+			int ret;
+
+			try {
+				pyobj = PyDict_GetItemString(dictObj, key.c_str());
+				ret = (pyobj == nullptr ? -444444444 : PyLong_AsLong(pyobj));
+			}
+			catch (std::exception & e) {
+				cout << "Error: " << e.what() << endl;
+				return -111111111111;
+			}
+
+			//PyObject * str = PyUnicode_FromString(key.c_str());
+			//PyObject * pyobj = PyDict_GetItemWithError(dictObj, str);
+			//
+			//
+			//if (pyobj == nullptr) {
+			//	cout << "EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEe" << endl;
+			//	cin.get();
+			//}
+			//
+			//Py_DECREF(str);
+			Py_DECREF(pyobj);
+
+			return ret;
+		}
+
+		Info Game::info() const {
+			Info ret;
+			
+			if (PyDict_Check(_info) == false) {
+				cout << "Error:" << endl;
+			}
+
+			ret.act = dictGetLong(_info, "act");
+			ret.zone = dictGetLong(_info, "zone");
+			ret.level_end_bonus = dictGetLong(_info, "level_end_bonus");
+			ret.rings = dictGetLong(_info, "rings");
+			ret.score = dictGetLong(_info, "score");
+			ret.lives = dictGetLong(_info, "lives");
+			ret.x = dictGetLong(_info, "x");
+			ret.y = dictGetLong(_info, "y");
+			ret.screen_x_end = dictGetLong(_info, "screen_x_end");
+			ret.screen_x = dictGetLong(_info, "screen_x");
+			ret.screen_y = dictGetLong(_info, "screen_y");
+
+			return ret;
 		}
 	} // namespace game
 } // namespace supersonicai

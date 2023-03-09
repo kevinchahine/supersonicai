@@ -10,6 +10,7 @@
 
 #include "supersonicai/game/action.h"
 #include "supersonicai/python/image.h"
+#include "supersonicai/game/info.h"
 
 namespace supersonicai
 {
@@ -34,21 +35,21 @@ namespace supersonicai
 
 			void render();
 
-			python::Image getObs() const;
+			python::Image obs() const;
 
-			int getReward() const;
+			int reward() const;
 
-			bool isDone() const;
+			bool done() const;
 
-			//void getInfo() const;
+			Info info() const;
 
 		private:
-			PyObject * env;
+			PyObject * _env;
 
-			PyObject * obs;
-			PyObject * reward;
-			PyObject * done;
-			PyObject * info;
+			PyObject * _obs;
+			PyObject * _reward;
+			PyObject * _done;
+			PyObject * _info;
 
 			PyObject * one;
 			PyObject * zero;
