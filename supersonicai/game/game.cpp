@@ -89,6 +89,10 @@ namespace supersonicai
 			PyObject_CallMethod(env, "render", "()");
 		}
 
+		python::Image Game::getObs() const {
+			return python::Image(obs);
+		}
+
 		bool Game::isDone() const {
 
 			return false;

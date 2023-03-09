@@ -9,6 +9,7 @@
 #include <opencv2/core/mat.hpp>
 
 #include "supersonicai/game/action.h"
+#include "supersonicai/python/image.h"
 
 namespace supersonicai
 {
@@ -33,7 +34,7 @@ namespace supersonicai
 
 			void render();
 
-			cv::Mat getObs() const;
+			python::Image getObs() const;
 
 			int getReward() const;
 

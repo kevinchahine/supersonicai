@@ -33,7 +33,6 @@ int main(int argc, char ** argv) {
 	action.pushRight();
 
 	game.load(level.name(), level.stage());
-	
 	game.reset();
 
 	supersonicai::util::Timer timer;
@@ -43,9 +42,9 @@ int main(int argc, char ** argv) {
 	while (timer.is_not_expired()) {
 		game.render();
 
-		//action.reset();
-		
 		game.step(action);
+
+		supersonicai::python::Image img = game.getObs();
 	}
 
 	cout << "Closing game...";

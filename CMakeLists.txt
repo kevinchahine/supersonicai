@@ -41,6 +41,8 @@ set(NOTES
 set(PYTHON 
 	supersonicai/python/helpers.cpp
 	supersonicai/python/helpers.h
+	supersonicai/python/image.cpp
+	supersonicai/python/image.h
 )
 
 set(UTIL
