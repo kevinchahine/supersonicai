@@ -31,7 +31,7 @@ namespace supersonicai
 			PyObject * retro_make = supersonicai::python::retroMakeFunc();
 
 			_env = supersonicai::python::call_func(
-				retro_make, 
+				retro_make,
 				gameName,
 				stageName);
 
@@ -72,19 +72,26 @@ namespace supersonicai
 			PyObject * ret = PyObject_CallMethod(_env, "step", "(O)", list);
 
 			// --- Extract returned data ---
-			//Py_CLEAR(_obs);
-			//Py_CLEAR(_reward);
-			//Py_CLEAR(_done);
-			//Py_CLEAR(_info);
-			
+			Py_CLEAR(_obs);
+			Py_CLEAR(_reward);
+			Py_CLEAR(_done);
+			Py_CLEAR(_info);
+
 			_obs = PyTuple_GetItem(ret, 0);
 			_reward = PyTuple_GetItem(ret, 1);
 			_done = PyTuple_GetItem(ret, 2);
 			_info = PyTuple_GetItem(ret, 3);
-			
+
+			Py_INCREF(_obs);
+			Py_INCREF(_reward);
+			Py_INCREF(_done);
+			Py_INCREF(_info);
+
 			//PyObject_Print(_info, stdout, Py_PRINT_RAW);
 
 			Py_XDECREF(ret);
+
+			return;
 		}
 
 		void Game::render() {
@@ -99,41 +106,32 @@ namespace supersonicai
 		}
 
 		bool Game::done() const {
-			
+
 			return false;
 		}
-		
-		int dictGetLong(PyObject * dictObj, const std::string & key) {
+
+		int dictGetLong(PyObject * dict, const std::string & key) {
 			PyObject * pyobj;
-			int ret;
+			int ret = -999;
 
-			try {
-				pyobj = PyDict_GetItemString(dictObj, key.c_str());
-				ret = (pyobj == nullptr ? -444444444 : PyLong_AsLong(pyobj));
-			}
-			catch (std::exception & e) {
-				cout << "Error: " << e.what() << endl;
-				return -111111111111;
-			}
+			PyObject * pyKey = PyUnicode_FromString(key.c_str());
 
-			//PyObject * str = PyUnicode_FromString(key.c_str());
-			//PyObject * pyobj = PyDict_GetItemWithError(dictObj, str);
-			//
-			//
-			//if (pyobj == nullptr) {
-			//	cout << "EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEe" << endl;
-			//	cin.get();
-			//}
-			//
-			//Py_DECREF(str);
-			Py_DECREF(pyobj);
+			if (PyDict_Contains(dict, pyKey)) {
+				PyObject * pyVal = PyDict_GetItem(dict, pyKey);
+				ret = PyLong_AsLong(pyVal);
+			}
 
 			return ret;
 		}
 
 		Info Game::info() const {
 			Info ret;
-			
+
+			if (_info == nullptr) {
+				cerr << "Error: info dict was null" << endl;
+				return ret;
+			}
+
 			if (PyDict_Check(_info) == false) {
 				cout << "Error:" << endl;
 			}

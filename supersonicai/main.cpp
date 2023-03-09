@@ -40,17 +40,14 @@ int main(int argc, char ** argv) {
 	game.reset();
 
 	supersonicai::util::Timer timer;
-	timer.expires_from_now(chrono::seconds(1));
+	timer.expires_from_now(chrono::seconds(1000));
 	timer.resume();
 
 	cv::Mat cvImg = cv::Mat::zeros(cv::Size(340, 224), CV_8UC3);
 
 	int frameCounter = 0;
 	while (timer.is_not_expired()) {
-		cout << "---1---" << endl;
 		//game.render();
-		cv::imshow("cv window", cvImg);
-		cout << "---2---" << endl;
 
 		frameCounter++;
 		if (frameCounter < 200) {
@@ -64,21 +61,18 @@ int main(int argc, char ** argv) {
 			action.pushRight();
 		}
 
-		cout << frameCounter << endl;
+		//cout << frameCounter << endl;
 
 		game.step(action);
 
-		cout << "---3---" << endl;
+		supersonicai::python::Image obs = game.obs();
+		supersonicai::game::Info info = game.info();
 
-		//supersonicai::python::Image obs = game.obs();
-		//supersonicai::game::Info info = game.info();
+		cout << endl << info << endl << endl;
 
-		//cout << endl << info << endl << endl;
-		cout << "---4---" << endl;
-
-		//cvImg = obs.toCV();
-		//cv::imshow("cv", cvImg);
-		//cv::waitKey(10);
+		cvImg = obs.toCV();
+		cv::imshow("cv", cvImg);
+		cv::waitKey(10);
 	}
 
 	//cv::imwrite("img.png", cvImg);
