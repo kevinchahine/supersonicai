@@ -14,6 +14,17 @@ set(AGENTS
 	supersonicai/agents/replay.h
 )
 
+set(GAME
+	supersonicai/game/action.cpp
+	supersonicai/game/action.h
+	supersonicai/game/game.cpp
+	supersonicai/game/game.h
+	supersonicai/game/level.cpp
+	supersonicai/game/level.h
+	supersonicai/game/levels.cpp
+	supersonicai/game/levels.h
+)
+
 set(ML
 )
 
@@ -28,7 +39,15 @@ set(NOTES
 )
 
 set(PYTHON 
-	# "supersonicai/python/"
+	supersonicai/python/helpers.cpp
+	supersonicai/python/helpers.h
+)
+
+set(UTIL
+	supersonicai/util/stopwatch.cpp
+	supersonicai/util/stopwatch.h
+	supersonicai/util/timer.cpp
+	supersonicai/util/timer.h
 )
 
 set(VIEWS
@@ -41,24 +60,33 @@ set(VIEWS
 )
 
 source_group(agents FILES ${AGENTS})
+source_group(game FILES ${GAME})
 source_group(ml FILES ${ML})
 source_group(networks FILES ${NETWORKS})
 source_group(notes FILES ${NOTES})
 source_group(python FILES ${PYTHON})
+source_group(util FILES ${UTIL})
 source_group(views FILES ${VIEWS})
+
+include_directories(.)
+
+# Link Python
+link_directories("C:\\Users\\kchah\\AppData\\Local\\Programs\\Python\\Python38\\libs")
+include_directories("C:\\Users\\kchah\\AppData\\Local\\Programs\\Python\\Python38\\include")
+include_directories("C:\\Users\\kchah\\AppData\\Local\\Programs\\Python\\Python38\\Lib\\site-packages\\numpy\\core\\include")
 
 add_executable(${PROJECT_NAME}
 	supersonicai/main.cpp
 	.gitignore
 	${AGENTS}
+	${GAME}
 	${ML}
 	${NETWORKS}
 	${NOTES}
 	${PYTHON}
+	${UTIL}
 	${VIEWS}
 )
-
-include_directories(..)
 
 set(CMAKE_CXX_STANDARD 17)												# TODO: Do we need both?
 set_property(TARGET ${PROJECT_NAME} PROPERTY CXX_STANDARD 17)
@@ -71,3 +99,5 @@ message(STATUS "Compiler Version: ${CMAKE_CXX_COMPILER_VERSION} standard ${CMAKE
 if(MSVC)
 	target_compile_options(${PROJECT_NAME} PRIVATE "/MP")	# parallel compilation
 endif()
+
+target_link_libraries(${PROJECT_NAME} python38)

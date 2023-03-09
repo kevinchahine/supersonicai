@@ -24,3 +24,15 @@ int main()
 
 	game.close();
 }
+
+class Game
+	// --- fields ---
+	PyObject * obs;
+	PyObject * info;
+	PyObject * done;
+	PyObject * reward;
+
+	// --- methods ---
+	load(string game_name, string level) -> void;
+	close() -> void;
+	step(Action action);
