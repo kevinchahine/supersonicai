@@ -28,10 +28,17 @@ set(GAME
 )
 
 set(ML
+	supersonicai/ml/actor_critic_trainer.cpp
+	supersonicai/ml/actor_critic_trainer.h
+	supersonicai/ml/brute_trainer.cpp
+	supersonicai/ml/brute_trainer.h
+	supersonicai/ml/trainer_base.cpp
+	supersonicai/ml/trainer_base.h
 )
 
 set(NETWORKS
-	
+	supersonicai/networks/actor_critic_network.cpp
+	supersonicai/networks/actor_critic_network.h
 )
 
 set(NOTES
@@ -108,6 +115,7 @@ set_property(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR} PROPERTY VS_STARTUP_PROJECT $
 set_target_properties(${PROJECT_NAME} PROPERTIES CXX_STANDARD 17)
 target_compile_features(${PROJECT_NAME} PRIVATE cxx_std_17)
 message(STATUS "Compiler Version: ${CMAKE_CXX_COMPILER_VERSION} standard ${CMAKE_CXX_STANDARD}")
+set(VS_STARTUP_PROJECT ${PROJECT_NAME})
 
 # ----- Python -----
 
@@ -119,11 +127,11 @@ target_link_libraries(${PROJECT_NAME} PUBLIC python38)
 
 # ----- Torch -----
 
-message(STATUS "\n----- Torch -----")
-
 set(CMAKE_CUDA_ARCHITECTURES 75)# all)
 find_package(Torch REQUIRED)
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${TORCH_CXX_FLAGS}")
+
+message(STATUS "\n----- Torch -----")
 
 target_link_libraries(${PROJECT_NAME} PUBLIC
 	"${TORCH_LIBRARIES}"
@@ -134,7 +142,7 @@ target_link_libraries(${PROJECT_NAME} PUBLIC
 # According to https://github.com/pytorch/pytorch/issues/25457,
 # the DLLs need to be copied to avoid memory errors.
 if (MSVC)
-	message(STATUS "--- :P d: :D :)BX8==; MSVC :) ---")
+	message(STATUS "--- :P d: :D ;)BX8==; MSVC :) ---")
 
 	file(GLOB TORCH_DLLS "${TORCH_INSTALL_PREFIX}/lib/*.dll")
 	add_custom_command(
