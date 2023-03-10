@@ -76,17 +76,24 @@ int main(int argc, char ** argv) {
 		cvImg = obs.toCV();
 
 		cv::cvtColor(cvImg, cvImg, cv::COLOR_RGB2BGR);
-		cv::imshow("cv", cvImg);
+		cv::imshow("original", cvImg);
 
-		cv::Mat centered = supersonicai::vision::centerImageToSonic(cvImg, info);
-		supersonicai::vision::drawCrossHairs(centered);
+		supersonicai::vision::removeText(cvImg);
+		cv::Mat img = supersonicai::vision::centerImageToSonic(cvImg, info);
+		supersonicai::vision::downsample(img);
+		cout << "Downsampled size: " << img.size() << endl;
 
-		cv::imshow("centered", centered);
+		cv::imshow("processed", img);
+
+		cv::Mat big;
+		cv::resize(img, big, cvImg.size());
+		supersonicai::vision::drawCrossHairs(big);
+		cv::imshow("big", big);
 
 		cv::waitKey(10);
 	}
 
-	//cv::imwrite("img.png", cvImg);
+	cv::imwrite("img.png", cvImg);
 
 	cv::destroyAllWindows();
 

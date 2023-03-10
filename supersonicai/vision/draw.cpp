@@ -19,14 +19,14 @@ namespace supersonicai
 			cv::Point p7(img.size().width / 2, img.size().height * 0.6);
 			cv::Point p8(img.size().width / 2, img.size().height);
 
-			cv::Scalar black(76, 76, 76);
-			int thickness = 2;
+			cv::Scalar black(76, 255, 76);
+			int thickness = 1;
 			auto lineType = cv::FILLED;
 
-			cv::line(img, p1, p2, black, thickness, lineType);
-			cv::line(img, p3, p4, black, thickness, lineType);
-			cv::line(img, p5, p6, black, thickness, lineType);
-			cv::line(img, p7, p8, black, thickness, lineType);
+			cv::line(img, p1, p2, black, thickness);
+			cv::line(img, p3, p4, black, thickness);
+			cv::line(img, p5, p6, black, thickness);
+			cv::line(img, p7, p8, black, thickness);
 		}
 	} // namespace vision
 } // namespace supersonicai

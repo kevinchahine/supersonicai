@@ -16,5 +16,6 @@ namespace supersonicai
 
 		cv::Mat centerImage(cv::Mat & img, const cv::Point & center);
 
+		void downsample(cv::Mat & img);
 	} // namespace vision
 } // namespace supersonicai
