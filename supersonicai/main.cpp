@@ -16,6 +16,9 @@
 #include "supersonicai/util/stopwatch.h"
 #include "supersonicai/util/timer.h"
 
+#include "supersonicai/vision/draw.h"
+#include "supersonicai/vision/preprocessing.h"
+
 using namespace std;
 
 int main(int argc, char ** argv) {
@@ -40,10 +43,10 @@ int main(int argc, char ** argv) {
 	game.reset();
 
 	supersonicai::util::Timer timer;
-	timer.expires_from_now(chrono::seconds(1000));
+	timer.expires_from_now(chrono::seconds(10));
 	timer.resume();
 
-	cv::Mat cvImg = cv::Mat::zeros(cv::Size(340, 224), CV_8UC3);
+	cv::Mat cvImg = game.obs().toCV();
 
 	int frameCounter = 0;
 	while (timer.is_not_expired()) {
@@ -68,10 +71,16 @@ int main(int argc, char ** argv) {
 		supersonicai::python::Image obs = game.obs();
 		supersonicai::game::Info info = game.info();
 
-		cout << endl << info << endl << endl;
+		//cout << endl << info << endl << endl;
 
 		cvImg = obs.toCV();
 		cv::imshow("cv", cvImg);
+
+		cv::Mat centered = supersonicai::vision::centerImageToSonic(cvImg, info);
+		supersonicai::vision::drawCrossHairs(centered);
+
+		cv::imshow("centered", centered);
+
 		cv::waitKey(10);
 	}
 

@@ -64,6 +64,8 @@ set(VIEWS
 )
 
 set(VISION
+	supersonicai/vision/draw.cpp
+	supersonicai/vision/draw.h
 	supersonicai/vision/preprocessing.cpp
 	supersonicai/vision/preprocessing.h
 )
