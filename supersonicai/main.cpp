@@ -74,6 +74,8 @@ int main(int argc, char ** argv) {
 		//cout << endl << info << endl << endl;
 
 		cvImg = obs.toCV();
+
+		cv::cvtColor(cvImg, cvImg, cv::COLOR_RGB2BGR);
 		cv::imshow("cv", cvImg);
 
 		cv::Mat centered = supersonicai::vision::centerImageToSonic(cvImg, info);

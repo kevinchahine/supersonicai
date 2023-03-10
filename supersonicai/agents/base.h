@@ -2,6 +2,8 @@
 
 #include "supersonicai/game/action.h"
 
+#include <opencv2/core/mat.hpp>
+
 namespace supersonicai
 {
 	namespace agents
@@ -13,7 +15,7 @@ namespace supersonicai
 			
 			virtual void save(const std::string & filename) = 0;
 
-			virtual game::Action decide(/*cv::Mat, torch::Tensor*/) = 0;
+			virtual game::Action decide(const cv::Mat * image) = 0;
 		};
 	} // namespace agents
 } // namespace supersonicai

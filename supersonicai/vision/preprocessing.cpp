@@ -1,7 +1,5 @@
 #include "supersonicai/vision/preprocessing.h"
 
-#include <opencv2/highgui.hpp>// TODO: remove (debugging only)
-
 using namespace std;
 
 namespace supersonicai
