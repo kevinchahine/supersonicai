@@ -2,6 +2,8 @@
 
 #include "supersonicai/agents/base.h"
 
+#include "supersonicai/networks/actor_critic_network.h"
+
 namespace supersonicai
 {
 	namespace agents
@@ -13,10 +15,10 @@ namespace supersonicai
 
 			virtual void save(const std::string & filename) override;
 
-			virtual game::Action decide(const cv::Mat * image) override;
+			virtual game::Action decide(const cv::Mat & image) override;
 
 		private:
-
+			networks::ActorCriticNetwork _network;
 		};
 	} // namespace agents
 } // namespace supersonicai

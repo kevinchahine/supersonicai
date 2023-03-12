@@ -12,7 +12,7 @@ namespace supersonicai
 
 			virtual void save(const std::string & filename) override;
 
-			virtual game::Action decide(const cv::Mat * image) override;
+			virtual game::Action decide(const cv::Mat & image) override;
 		};
 	} // namespace agents
 } // namespace supersonicai

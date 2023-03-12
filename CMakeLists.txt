@@ -34,6 +34,8 @@ set(ML
 	supersonicai/ml/brute_trainer.h
 	supersonicai/ml/trainer_base.cpp
 	supersonicai/ml/trainer_base.h
+	supersonicai/ml/cvToTensor.cpp
+	supersonicai/ml/cvToTensor.h
 )
 
 set(NETWORKS

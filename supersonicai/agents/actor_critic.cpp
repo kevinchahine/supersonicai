@@ -1,5 +1,7 @@
 #include "actor_critic.h"
 
+#include "supersonicai/ml/cvToTensor.h"
+
 using namespace std;
 
 namespace supersonicai
@@ -10,12 +12,15 @@ namespace supersonicai
 
 		void ActorCritic::save(const std::string & filename) {}
 		
-		game::Action ActorCritic::decide(const cv::Mat * image) {
-			game::Action action;
+		game::Action ActorCritic::decide(const cv::Mat & image) {
 
+			at::Tensor imgTensor = supersonicai::ml::cvToTensor(image);
+			at::Tensor output = _network.forward(imgTensor);
 
-
-			return action;
+			int index = output.argmax().item<int>();
+			
+			cout << index << '\t' ;
+			return game::Action(index);
 		}
-    } // namespace agents
+	} // namespace agents
 } // namespace supersonicai

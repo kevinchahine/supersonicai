@@ -1,5 +1,6 @@
 #pragma once
 
+#include <array>
 #include <iostream>
 #include <bitset>
 
@@ -13,31 +14,46 @@ namespace supersonicai
 		class Action
 		{
 		public:
+
+			Action() = default;
+			Action(int index);
+			Action(const Action &) = default;
+			Action(Action &&) noexcept = default;
+			~Action() noexcept = default;
+			Action & operator=(const Action &) = default;
+			Action & operator=(Action &&) noexcept = default;
+
 			// Releases all buttons
 			void reset();
 
-			void pushA();
+			void standStill();
 
-			void pushUp();
+			void jump();
 
-			void pushUpRight();
+			void lookUp();
 
-			void pushRight();
+			void runRight();
 
-			void pushDownRight();
+			void crouch();
 
-			void pushDown();
-
-			void pushDownLeft();
-
-			void pushLeft();
-
-			void pushUpLeft();
+			void runLeft();
 
 			bool operator[](int index) const { return this->buttons[index]; }
 
+			friend std::ostream & operator<<(std::ostream & os, const Action & action) {
+				os << action.buttons;
+
+				return os;
+			}
 		private:
 			std::bitset<12> buttons;
+
+			// look up table which maps action specified by an index [0, 7]
+			// to a combination of button presses.
+			// *** There is no way to control rolling left or right. ***
+			// *** Momentum determines direction of roll. ***
+			// *** Spin Dash doesn't come until SonicTheHedgehog2
+			const static std::array<std::bitset<12>, 8> buttonTable;
 		};
 	} // namespace game
 } // namespace supersonicai

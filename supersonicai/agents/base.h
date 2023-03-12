@@ -15,7 +15,7 @@ namespace supersonicai
 			
 			virtual void save(const std::string & filename) = 0;
 
-			virtual game::Action decide(const cv::Mat * image) = 0;
+			virtual game::Action decide(const cv::Mat & image) = 0;
 		};
 	} // namespace agents
 } // namespace supersonicai
