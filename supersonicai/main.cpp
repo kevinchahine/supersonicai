@@ -83,7 +83,7 @@ int main(int argc, char ** argv) {
 		ssa::vision::drawCrossHairs(big);
 		cv::imshow("big", big);
 
-		cv::waitKey(11);
+		cv::waitKey(1);
 
 		action = agent.decide(img);
 		cout << action << endl;

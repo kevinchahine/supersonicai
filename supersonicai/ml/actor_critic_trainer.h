@@ -1,5 +1,7 @@
 #pragma once
 
+// ac method in python: https://github.com/pytorch/examples/blob/main/reinforcement_learning/actor_critic.py
+
 #include "supersonicai/ml/trainer_base.h"
 
 namespace supersonicai
