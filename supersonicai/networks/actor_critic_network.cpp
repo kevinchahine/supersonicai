@@ -12,8 +12,9 @@ namespace supersonicai
 			l1 = register_module("l1", torch::nn::Linear(27'945, 1024));
 			l2 = register_module("l2", torch::nn::Linear(1024, 1024));
 			l3 = register_module("l3", torch::nn::Linear(1024, 256));
-			l4 = register_module("l4", torch::nn::Linear(256, 7));
-			smax = register_module("smax", torch::nn::Softmax(1));
+			policy = register_module("policy", torch::nn::Linear(256, 7));
+			value = register_module("value", torch::nn::Linear(256, 1));
+			softmax = torch::nn::Softmax();
 
 			//l1->to(torch::kInt8);
 			//l2->to(torch::kInt8);
@@ -24,17 +25,22 @@ namespace supersonicai
 		torch::Tensor ActorCriticNetwork::forward(torch::Tensor x) {
 			x = x.to(torch::kFloat32);
 
+			// --- Network Body ---
 			x = Flatten::forward(x);
 			x = l1->forward(x);
-			x = torch::sigmoid(x);
+			x = torch::relu(x);
 			x = l2->forward(x);
-			x = torch::sigmoid(x);
+			x = torch::relu(x);
 			x = l3->forward(x);
-			x = torch::sigmoid(x);
-			x = l4->forward(x);
-			x = torch::sigmoid(x);
-			x = smax->forward(x);
+			x = torch::relu(x);
 
+			// --- Actor Critic Heads ---
+			torch::Tensor policy_output = policy->forward(x);
+			torch::Tensor value_output = value->forward(x);
+
+			policy_output = softmax->forward(policy_output);// Calculate action probs
+
+			//return policy_output;
 			return x;
 		}
 	} // namespace networks

@@ -19,7 +19,7 @@ namespace supersonicai
 
 			int index = output.argmax().item<int>();
 			
-			cout << index << '\t' ;
+			//cout << index << '\t' ;
 			return game::Action(index);
 		}
 	} // namespace agents

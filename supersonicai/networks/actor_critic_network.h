@@ -35,13 +35,13 @@ namespace supersonicai
 
 			torch::Tensor forward(torch::Tensor x);
 
-
 		private:
 			torch::nn::Linear l1{ nullptr };
 			torch::nn::Linear l2{ nullptr };
 			torch::nn::Linear l3{ nullptr };
-			torch::nn::Linear l4{ nullptr };
-			torch::nn::Softmax smax{ nullptr };
+			torch::nn::Linear policy{ nullptr };
+			torch::nn::Linear value{ nullptr };
+			torch::nn::Softmax softmax;
 		};
 	} // namespace networks
 } // namespace supersonicai
