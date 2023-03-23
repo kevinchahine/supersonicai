@@ -14,6 +14,68 @@ set(AGENTS
 	supersonicai/agents/replay.h
 )
 
+set(DATASET 
+	supersonicai/dataset/generator.cpp
+	supersonicai/dataset/generator.h
+	supersonicai/dataset/image.cpp
+	supersonicai/dataset/image.h
+	supersonicai/dataset/segmentation_generator.cpp
+	supersonicai/dataset/segmentation_generator.h
+)
+
+set(DATASET_PARALLAX
+	supersonicai/dataset/parallax/parallax.cpp
+	supersonicai/dataset/parallax/parallax.h
+	supersonicai/dataset/parallax/background.cpp
+	supersonicai/dataset/parallax/background.h
+)
+
+set(DATASET_SPRITE
+	supersonicai/dataset/sprite/ballhog_sprite.cpp
+	supersonicai/dataset/sprite/ballhog_sprite.h
+	supersonicai/dataset/sprite/batbrain_sprite.cpp
+	supersonicai/dataset/sprite/batbrain_sprite.h
+	supersonicai/dataset/sprite/buzzbomber_sprite.cpp
+	supersonicai/dataset/sprite/buzzbomber_sprite.h
+	supersonicai/dataset/sprite/bomb_sprite.cpp
+	supersonicai/dataset/sprite/bomb_sprite.h
+	supersonicai/dataset/sprite/burrobot_sprite.cpp
+	supersonicai/dataset/sprite/burrobot_sprite.h
+	supersonicai/dataset/sprite/caterkiller_sprite.cpp
+	supersonicai/dataset/sprite/caterkiller_sprite.h
+	supersonicai/dataset/sprite/crabmeat_sprite.cpp
+	supersonicai/dataset/sprite/crabmeat_sprite.h
+	supersonicai/dataset/sprite/eggman_sprite.cpp
+	supersonicai/dataset/sprite/eggman_sprite.h
+	supersonicai/dataset/sprite/jaws_sprite.cpp
+	supersonicai/dataset/sprite/jaws_sprite.h
+	supersonicai/dataset/sprite/masher_sprite.cpp
+	supersonicai/dataset/sprite/masher_sprite.h
+	supersonicai/dataset/sprite/motobug_sprite.cpp
+	supersonicai/dataset/sprite/motobug_sprite.h
+	supersonicai/dataset/sprite/newtron_sprite.cpp
+	supersonicai/dataset/sprite/newtron_sprite.h
+	supersonicai/dataset/sprite/orbinaut_sprite.cpp
+	supersonicai/dataset/sprite/orbinaut_sprite.h
+	supersonicai/dataset/sprite/sonic_sprite.cpp
+	supersonicai/dataset/sprite/sonic_sprite.h
+	supersonicai/dataset/sprite/spikes_sprite.cpp
+	supersonicai/dataset/sprite/spikes_sprite.h
+	supersonicai/dataset/sprite/splat_sprite.cpp
+	supersonicai/dataset/sprite/splat_sprite.h
+	supersonicai/dataset/sprite/sprite.cpp
+	supersonicai/dataset/sprite/sprite.h
+	supersonicai/dataset/sprite/roller_sprite.cpp
+	supersonicai/dataset/sprite/roller_sprite.h
+)
+	
+set(DISTRIBUTIONS
+	supersonicai/distributions/categorical.cpp
+	supersonicai/distributions/categorical.h
+	supersonicai/distributions/distribution.cpp
+	supersonicai/distributions/distribution.h
+)
+
 set(GAME
 	supersonicai/game/action.cpp
 	supersonicai/game/action.h
@@ -47,6 +109,7 @@ set(NOTES
 	supersonicai/notes/highleveldesign.txt
 	supersonicai/notes/mvc.txt
 	supersonicai/notes/python.txt
+	supersonicai/notes/segmentation_dataset.txt
 )
 
 set(PYTHON 
@@ -80,6 +143,10 @@ set(VISION
 )
 
 source_group(agents FILES ${AGENTS})
+source_group(dataset FILES ${DATASET})
+source_group(dataset/parallax FILES ${DATASET_PARALLAX})
+source_group(dataset/sprite FILES ${DATASET_SPRITE})
+source_group(distributions FILES ${DISTRIBUTIONS})
 source_group(game FILES ${GAME})
 source_group(ml FILES ${ML})
 source_group(networks FILES ${NETWORKS})
@@ -100,6 +167,10 @@ add_executable(${PROJECT_NAME}
 	supersonicai/main.cpp
 	.gitignore
 	${AGENTS}
+	${DATASET}
+	${DATASET_PARALLAX}
+	${DATASET_SPRITE}
+	${DISTRIBUTIONS}
 	${GAME}
 	${ML}
 	${NETWORKS}

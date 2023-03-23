@@ -13,6 +13,13 @@ namespace supersonicai
 {
 	namespace networks
 	{
+		class ACTuple
+		{
+		public:
+			torch::Tensor policy;
+			torch::Tensor value;
+		};
+
 		class Flatten : public torch::nn::Module
 		{
 		public:
@@ -33,7 +40,7 @@ namespace supersonicai
 		public:
 			ActorCriticNetwork();
 
-			torch::Tensor forward(torch::Tensor x);
+			ACTuple forward(torch::Tensor x);
 
 		private:
 			torch::nn::Linear l1{ nullptr };
@@ -41,7 +48,7 @@ namespace supersonicai
 			torch::nn::Linear l3{ nullptr };
 			torch::nn::Linear policy{ nullptr };
 			torch::nn::Linear value{ nullptr };
-			torch::nn::Softmax softmax;
+			torch::nn::Softmax softmax{ nullptr };
 		};
 	} // namespace networks
 } // namespace supersonicai

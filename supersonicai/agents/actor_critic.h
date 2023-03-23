@@ -17,6 +17,9 @@ namespace supersonicai
 
 			virtual game::Action decide(const cv::Mat & image) override;
 
+			networks::ActorCriticNetwork & network() { return _network; }
+			const networks::ActorCriticNetwork & network() const { return _network; }
+
 		private:
 			networks::ActorCriticNetwork _network;
 		};

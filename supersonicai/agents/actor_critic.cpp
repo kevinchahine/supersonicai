@@ -15,9 +15,9 @@ namespace supersonicai
 		game::Action ActorCritic::decide(const cv::Mat & image) {
 
 			at::Tensor imgTensor = supersonicai::ml::cvToTensor(image);
-			at::Tensor output = _network.forward(imgTensor);
+			networks::ACTuple output = _network.forward(imgTensor);
 
-			int index = output.argmax().item<int>();
+			int index = output.policy.argmax().item<int>();
 			
 			//cout << index << '\t' ;
 			return game::Action(index);

@@ -12,7 +12,7 @@ namespace supersonicai
 		public:
 			virtual void trainOneEpoch() = 0;
 
-		private:
+		protected:
 			// Agent to be trained.
 			// Non-owning pointer. 
 			// Don't delete
