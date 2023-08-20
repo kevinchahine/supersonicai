@@ -38,6 +38,8 @@ namespace supersonicai
 
 			void runLeft();
 
+			void random();
+
 			bool operator[](int index) const { return this->buttons[index]; }
 
 			friend std::ostream & operator<<(std::ostream & os, const Action & action) {
@@ -45,6 +47,13 @@ namespace supersonicai
 
 				return os;
 			}
+
+			friend std::istream & operator>>(std::istream & is, Action & action) {
+				is >> action.buttons;
+
+				return is;
+			}
+
 		private:
 			std::bitset<12> buttons;
 

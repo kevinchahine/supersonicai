@@ -13,7 +13,7 @@ namespace supersonicai
 		public:
 			virtual void load(const std::string & filename) = 0;
 			
-			virtual void save(const std::string & filename) = 0;
+			virtual void save(const std::string & filename) const = 0;
 
 			virtual game::Action decide(const cv::Mat & image) = 0;
 		};

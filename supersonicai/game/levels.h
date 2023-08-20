@@ -1,5 +1,6 @@
 #pragma once
 
+#include <array>
 #include <iostream>
 
 #include "supersonicai/game/level.h"
@@ -31,7 +32,9 @@ namespace supersonicai
 				extern const Level level15;
 				extern const Level level16;
 
-				extern const Level levels[];
+				extern const std::array<Level, 17> levels;
+
+				const Level & selectRandom();
 			} // namespace sonic1
 		} // namespace levels
 	} // namespace game

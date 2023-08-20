@@ -1,5 +1,7 @@
 #include "action.h"
 
+#include "supersonicai/util/random.h"
+
 using namespace std;
 
 namespace supersonicai
@@ -45,5 +47,13 @@ namespace supersonicai
 		void Action::crouch() { buttons[STICK_DOWN] = 1; }
 		
 		void Action::runLeft() { buttons[STICK_LEFT] = 1; }
+
+		void Action::random() {
+			uniform_int_distribution<int> dist(0, buttons.size());
+
+			int value = dist(util::g_dre);
+
+			buttons = buttonTable[value];
+		}
 	} // namespace game
 } // namespace supersonicai

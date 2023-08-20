@@ -10,7 +10,7 @@ namespace supersonicai
 		{
 			virtual void load(const std::string & filename) override;
 
-			virtual void save(const std::string & filename) override;
+			virtual void save(const std::string & filename) const override;
 
 			virtual game::Action decide(const cv::Mat & image) override;
 		};

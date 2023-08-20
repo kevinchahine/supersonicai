@@ -1,4 +1,7 @@
 #include "supersonicai/game/levels.h"
+#include "supersonicai/util/random.h"
+
+#include <random>
 
 using namespace std;
 
@@ -28,7 +31,7 @@ namespace supersonicai
 				const Level level15("SonicTheHedgehog-Genesis", "ScrapBrainZone.Act1");
 				const Level level16("SonicTheHedgehog-Genesis", "ScrapBrainZone.Act2");
 
-				const Level level[] = {
+				extern const std::array<Level, 17> levels = {
 					level0,
 					level1,
 					level2,
@@ -47,6 +50,12 @@ namespace supersonicai
 					level15,
 					level16,
 				};
+
+				const Level & selectRandom() {
+					uniform_int_distribution<int> dist(0, levels.size() - 1);
+				
+					return levels.at(dist(util::g_dre));
+				}
 			} // namespace sonic1
 		} // namespace levels
 	} // namespace game

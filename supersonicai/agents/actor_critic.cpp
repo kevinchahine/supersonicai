@@ -10,7 +10,7 @@ namespace supersonicai
 	{
 		void ActorCritic::load(const std::string & filename) {}
 
-		void ActorCritic::save(const std::string & filename) {}
+		void ActorCritic::save(const std::string & filename) const {}
 		
 		game::Action ActorCritic::decide(const cv::Mat & image) {
 

@@ -8,10 +8,11 @@ set(AGENTS
 	supersonicai/agents/actor_critic.h
 	supersonicai/agents/base.cpp
 	supersonicai/agents/base.h
+	supersonicai/agents/brute.cpp
+	supersonicai/agents/brute.h
 	supersonicai/agents/random.cpp
 	supersonicai/agents/random.h
-	supersonicai/agents/replay.cpp
-	supersonicai/agents/replay.h
+	supersonicai/agents/agents.hpp
 )
 
 set(DATASET 
@@ -79,6 +80,8 @@ set(DISTRIBUTIONS
 set(GAME
 	supersonicai/game/action.cpp
 	supersonicai/game/action.h
+	supersonicai/game/action_sequence.cpp
+	supersonicai/game/action_sequence.h
 	supersonicai/game/game.cpp
 	supersonicai/game/game.h
 	supersonicai/game/info.cpp
@@ -124,6 +127,8 @@ set(UTIL
 	supersonicai/util/stopwatch.h
 	supersonicai/util/timer.cpp
 	supersonicai/util/timer.h
+    supersonicai/util/random.cpp
+    supersonicai/util/random.h
 )
 
 set(VIEWS

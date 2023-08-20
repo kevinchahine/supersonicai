@@ -17,7 +17,7 @@ namespace supersonicai
 
 			private:
 				cv::Mat original;// comes from original image
-				cv::Mat foreground;// comes from manual segmentation
+				cv::Mat foreground;// comes from manual segmentation (label)
 			};
 		} // namespace sprite
 	} // namespace dataset

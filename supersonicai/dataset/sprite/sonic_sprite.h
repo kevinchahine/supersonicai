@@ -16,4 +16,4 @@ namespace supersonicai
 			};
 		} // namespace sprite
 	} // namespace dataset
-} // namespace supersonicai
+} // namespace supersonicaicp

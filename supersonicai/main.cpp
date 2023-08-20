@@ -7,6 +7,9 @@
 #include <opencv2/highgui.hpp>
 
 #include "supersonicai/agents/actor_critic.h"
+#include "supersonicai/agents/brute.h"
+#include "supersonicai/agents/random.h"
+#include "supersonicai/agents/agents.hpp"
 
 #include "supersonicai/game/game.h"
 #include "supersonicai/game/info.h"
@@ -41,13 +44,20 @@ int main(int argc, char ** argv) {
 
 	ssa::game::Game game;
 
-	ssa::game::Level level = ssa::game::levels::sonic1::level0;
+	ssa::game::Level level = 
+		ssa::game::levels::sonic1::selectRandom();
+		//ssa::game::levels::sonic1::level0;
 
 	ssa::game::Action action;
 	action.reset();
 	action.runRight();
 
-	ssa::agents::ActorCritic agent;
+	unique_ptr<ssa::agents::Base> agent = 
+		//make_unique<ssa::agents::ActorCritic>();
+		make_unique<ssa::agents::Brute>();
+
+	agent->load("actions1.txt");
+	//agent->save("actions1.txt");
 
 	game.load(level.name(), level.stage());
 	game.reset();
@@ -69,6 +79,10 @@ int main(int argc, char ** argv) {
 
 		cvImg = obs.toCV();
 
+		if (cvImg.empty()) {
+			std::cout << "Error: Empty image" << std::endl;
+		}
+
 		cv::cvtColor(cvImg, cvImg, cv::COLOR_RGB2BGR);
 		cv::imshow("original", cvImg);
 
@@ -85,7 +99,7 @@ int main(int argc, char ** argv) {
 
 		cv::waitKey(1);
 
-		action = agent.decide(img);
+		action = agent->decide(img);
 		cout << action << endl;
 	} // end while()
 
