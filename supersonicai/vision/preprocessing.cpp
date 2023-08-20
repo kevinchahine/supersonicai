@@ -35,11 +35,18 @@ namespace supersonicai
 			int y = img.size().height - center.y;
 			int w = img.size().width;
 			int h = img.size().height;
-
 			cv::Rect2d roi(x, y, w, h);
-			// TODO: do some edge trimming. When sonic is off the screen we get an 
-			// TODO: out of bounds error
-			img.copyTo(centered(roi));
+
+			// Trim region of interest to fit centered image
+			cv::Rect2d centeredRect(cv::Point(0, 0), centered.size());
+
+			roi = roi & centeredRect;// Intersection of centered and ROI
+
+			cv::Rect2d imgRect(cv::Point(0, 0), roi.size());
+
+			if (imgRect.empty() == false && roi.empty() == false) {
+				img(imgRect).copyTo(centered(roi));
+			}
 
 			return centered;
 		}

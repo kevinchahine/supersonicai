@@ -34,7 +34,7 @@ namespace supersonicai
 				ActionSequence::const_iterator it = this->super_t::begin();
 				it != this->super_t::end();
 				++it) {
-				Action action = *it;5
+				Action action = *it;
 
 				out << action << endl;
 			}
