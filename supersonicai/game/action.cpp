@@ -9,7 +9,7 @@ namespace supersonicai
 	namespace game
 	{
 		// Index of each possible move.
-		// These values are constant and should not be change at runtime.
+		// These values are constant and should not be changed at runtime.
 		const size_t BUTTON_A = 0;
 		const size_t STICK_UP = 4;
 		const size_t STICK_DOWN = 5;
@@ -24,7 +24,7 @@ namespace supersonicai
 			0b000'00100'0000, // 1 - left
 			0b000'01000'0000, // 2 - right
 			0b000'11000'0000, // 3 - jump right
-			0b000'10000'0000, // 4 - jump		
+			0b000'10000'0000, // 4 - jump
 			0b000'10100'0000, // 5 - jump left
 			0b000'00010'0000, // 6 - crouch/roll
 			0b000'00001'0000, // 7 - lookup
@@ -54,6 +54,54 @@ namespace supersonicai
 			int value = dist(util::g_dre);
 
 			buttons = buttonTable[value];
+		}
+		
+		const Action & Action::StandStill() {
+			static const Action action(0);
+
+			return action;
+		}
+		
+		const Action & Action::RunRight() {
+			static const Action action(2);
+
+			return action;
+		}
+
+		const Action & Action::RunLeft() {
+			static const Action action(1);
+
+			return action;
+		}
+
+		const Action & Action::JumpRight() {
+			static const Action action(3);
+
+			return action;
+		}
+
+		const Action & Action::Jump() {
+			static const Action action(4);
+			
+			return action;
+		}
+
+		const Action & Action::JumpLeft() {
+			static const Action action(5);
+
+			return action;
+		}
+		
+		const Action & Action::LookUp() {
+			static const Action action(7);
+
+			return action;
+		}
+		
+		const Action & Action::Crouch() {
+			static const Action action(6);
+
+			return action;
 		}
 	} // namespace game
 } // namespace supersonicai

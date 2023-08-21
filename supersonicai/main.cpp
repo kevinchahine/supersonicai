@@ -66,10 +66,6 @@ int main(int argc, char ** argv) {
 	timer.expires_from_now(chrono::seconds(5));
 	timer.resume();
 
-	ssa::util::Timer timer2;
-	timer2.expires_from_now(chrono::seconds(2));
-	timer2.resume();
-
 	cv::Mat cvImg = game.obs().toCV();
 
 	int frameCounter = 0;
@@ -78,16 +74,6 @@ int main(int argc, char ** argv) {
 
 		ssa::python::Image obs = game.obs();
 		ssa::game::Info info = game.info();
-
-		if (timer2.is_expired()) {
-			//info.screen_x = -1000;
-			info.screen_y = -1000;
-			//info.y = 300;
-			//info.y = 1200;
-			//info.x = -5;
-			//info.x = 600;
-			//info.x = 800;
-		}
 
 		// --- Vision Pipeline ---
 

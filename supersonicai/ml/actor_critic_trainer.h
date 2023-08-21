@@ -22,6 +22,8 @@ namespace supersonicai
 		class ActorCriticTrainer : public TrainerBase
 		{
 		public:
+			virtual void initialize() override;
+			
 			virtual void trainOneEpoch() override;
 
 		private:

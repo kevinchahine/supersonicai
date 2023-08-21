@@ -97,6 +97,10 @@ set(ML
 	supersonicai/ml/actor_critic_trainer.h
 	supersonicai/ml/brute_trainer.cpp
 	supersonicai/ml/brute_trainer.h
+	supersonicai/ml/frontier.cpp
+	supersonicai/ml/frontier.h
+	supersonicai/ml/state.cpp
+	supersonicai/ml/state.h
 	supersonicai/ml/trainer_base.cpp
 	supersonicai/ml/trainer_base.h
 	supersonicai/ml/cvToTensor.cpp
@@ -120,6 +124,11 @@ set(PYTHON
 	supersonicai/python/helpers.h
 	supersonicai/python/image.cpp
 	supersonicai/python/image.h
+)
+
+set(REWARDS 
+	supersonicai/rewards/reward_system.cpp
+	supersonicai/rewards/reward_system.h
 )
 
 set(UTIL
@@ -157,6 +166,7 @@ source_group(ml FILES ${ML})
 source_group(networks FILES ${NETWORKS})
 source_group(notes FILES ${NOTES})
 source_group(python FILES ${PYTHON})
+source_group(rewards FILES ${REWARDS})
 source_group(util FILES ${UTIL})
 source_group(views FILES ${VIEWS})
 source_group(vision FILES ${VISION})
@@ -181,6 +191,7 @@ add_executable(${PROJECT_NAME}
 	${NETWORKS}
 	${NOTES}
 	${PYTHON}
+    ${REWARDS}
 	${UTIL}
 	${VIEWS}
 	${VISION}

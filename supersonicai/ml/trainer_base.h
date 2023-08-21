@@ -1,6 +1,7 @@
 #pragma once
 
 #include "supersonicai/agents/base.h"
+#include "supersonicai/game/action_sequence.h"
 
 namespace supersonicai
 {
@@ -10,6 +11,8 @@ namespace supersonicai
 		class TrainerBase
 		{
 		public:
+			virtual void initialize() = 0;
+
 			virtual void trainOneEpoch() = 0;
 
 		protected:

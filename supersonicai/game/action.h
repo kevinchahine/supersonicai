@@ -54,6 +54,15 @@ namespace supersonicai
 				return is;
 			}
 
+			static const Action & StandStill();
+			static const Action & RunRight();
+			static const Action & RunLeft();
+			static const Action & JumpRight();
+			static const Action & Jump();
+			static const Action & JumpLeft();
+			static const Action & LookUp();
+			static const Action & Crouch();
+
 		private:
 			std::bitset<12> buttons;
 
