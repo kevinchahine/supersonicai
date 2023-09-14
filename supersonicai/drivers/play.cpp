@@ -50,7 +50,7 @@ namespace supersonicai
 			//make_unique<ssa::agents::ActorCritic>();
 			make_unique<ssa::agents::Brute>();
 
-		agent->load("actions1.txt");
+		agent->load("brute_13.8207.txt");
 		//agent->save("actions1.txt");
 
 		game.load(level.name(), level.stage());

@@ -59,7 +59,7 @@ namespace supersonicai
 		trainer->initialize();
 
 		ssa::util::Timer timer;
-		timer.expires_from_now(chrono::seconds(5));
+		timer.expires_from_now(chrono::seconds(60));
 		timer.resume();
 
 		while (timer.is_not_expired()) {

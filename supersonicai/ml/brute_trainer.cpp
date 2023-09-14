@@ -1,6 +1,12 @@
 #include "supersonicai/ml/brute_trainer.h"
+
+#include <opencv2/opencv.hpp>
+
+#include "supersonicai/agents/brute.h"
 #include "supersonicai/game/levels.h"
 #include "supersonicai/rewards/reward_system.h"
+#include "supersonicai/util/stopwatch.h"
+#include "supersonicai/vision/helpers.h"
 
 using namespace std;
 
@@ -47,27 +53,45 @@ namespace supersonicai
 			frontier.push(branchFrom(curr, game::Action::JumpLeft()));
 			frontier.push(branchFrom(curr, game::Action::LookUp()));
 			frontier.push(branchFrom(curr, game::Action::Crouch()));
+
+			// TODO: i don't like this
+			// --- 3.) Save the best so far ---
+			const ml::State & best = frontier.top();
+			stringstream ss;
+			ss << "brute_" << best.reward << ".txt";
+			best.actions.save(ss.str());
 		}
 
 		ml::State BruteTrainer::branchFrom(const ml::State & currState, const game::Action & action) {
 			ml::State next = currState;// copy the current state
 
-			next.actions.push_back(action);
+			next.actions.push_back(action, 40);
 
 			// --- 2.) Reproduce current new state ---
 			// We need to know what this state looks like
 			game.reset();
 			game.step(game::Action::StandStill());
 
+			cout << "Simulating action sequence (size = " << next.actions.size() << ")" << endl;
+			util::StopWatch simTime;
+			simTime.resume();
+
+			size_t frameCount = 0;
 			const game::ActionSequence & actions = next.actions;
 			for (const game::Action & action : actions) {
+				///cout << "action: " << action << endl;
 				game.step(action);
 
-				//python::Image obs = game.obs();
-				//game::Info info = game.info();
-
-				game.render();
+				python::Image obs = game.obs();
+				game::Info info = game.info();
+				
+				frameCount++;
+				if (frameCount % 10 == 0) {
+					vision::imshow("Brute Trainer", obs);
+				}
 			}
+
+			simTime.pause();
 
 			// --- 3.) Analyze Outcome of ActionSequence ---
 			rewards::RewardSystem rewardSystem;
@@ -75,6 +99,11 @@ namespace supersonicai
 
 			next.reward = rewardSystem.calcReward();
 			next.reward /= next.actions.size();
+			cout 
+				<< "Sim Time: " << simTime.elapsed().count() << '\t'
+				<< "Reward for this state: " << next.reward 
+				<< " action sequence length: " << next.actions.size() 
+				<< endl;
 
 			return next;
 		}

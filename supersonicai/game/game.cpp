@@ -95,11 +95,7 @@ namespace supersonicai
 		}
 
 		void Game::render() {
-			// todo: check reference counting for erros.
-			cerr << "0x" << _env << ' ' << _env->ob_refcnt << " " << "0x" << _env->ob_type;
-			cerr << endl << "<<<";
 			PyObject_CallMethod(_env, "render", "()");
-			cerr << ">>>" << endl;
 		}
 
 		python::Image Game::obs() const {

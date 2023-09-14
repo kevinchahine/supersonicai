@@ -151,15 +151,21 @@ set(UTIL
 set(VIEWS
 	supersonicai/views/base.cpp
 	supersonicai/views/base.h
+	supersonicai/views/combined.cpp
+	supersonicai/views/combined.h
 	supersonicai/views/image.cpp
 	supersonicai/views/image.h
 	supersonicai/views/none.cpp
 	supersonicai/views/none.h
+	supersonicai/views/recorder.cpp
+	supersonicai/views/recorder.h
 )
 
 set(VISION
 	supersonicai/vision/draw.cpp
 	supersonicai/vision/draw.h
+	supersonicai/vision/helpers.cpp
+    supersonicai/vision/helpers.h
 	supersonicai/vision/preprocessing.cpp
 	supersonicai/vision/preprocessing.h
 )
