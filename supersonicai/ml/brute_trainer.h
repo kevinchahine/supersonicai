@@ -24,7 +24,7 @@ namespace supersonicai
 			ml::State branchFrom(const ml::State & currState, const game::Action & action);
 
 		private:
-			Frontier frontier;
+			ml::Frontier frontier;
 
 			game::Game game;
 		};

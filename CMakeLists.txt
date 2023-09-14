@@ -77,6 +77,14 @@ set(DISTRIBUTIONS
 	supersonicai/distributions/distribution.h
 )
 
+set(DRIVERS
+	supersonicai/drivers/main.cpp
+	supersonicai/drivers/play.cpp
+	supersonicai/drivers/play.h
+	supersonicai/drivers/train.cpp 
+	supersonicai/drivers/train.h 
+)
+
 set(GAME
 	supersonicai/game/action.cpp
 	supersonicai/game/action.h
@@ -161,6 +169,7 @@ source_group(dataset FILES ${DATASET})
 source_group(dataset/parallax FILES ${DATASET_PARALLAX})
 source_group(dataset/sprite FILES ${DATASET_SPRITE})
 source_group(distributions FILES ${DISTRIBUTIONS})
+source_group(drivers FILES ${DRIVERS})
 source_group(game FILES ${GAME})
 source_group(ml FILES ${ML})
 source_group(networks FILES ${NETWORKS})
@@ -179,13 +188,13 @@ include_directories("C:\\Users\\kchah\\AppData\\Local\\Programs\\Python\\Python3
 include_directories("C:\\Users\\kchah\\AppData\\Local\\Programs\\Python\\Python38\\Lib\\site-packages\\numpy\\core\\include")
 
 add_executable(${PROJECT_NAME}
-	supersonicai/main.cpp
 	.gitignore
 	${AGENTS}
 	${DATASET}
 	${DATASET_PARALLAX}
 	${DATASET_SPRITE}
 	${DISTRIBUTIONS}
+    ${DRIVERS}
 	${GAME}
 	${ML}
 	${NETWORKS}

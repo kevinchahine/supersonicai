@@ -25,6 +25,7 @@ namespace supersonicai
 				game::levels::sonic1::level0;
 
 			game.load(level.name(), level.stage());
+			game.reset();
 
 			game.step(game::Action::StandStill());
 		}
@@ -61,6 +62,11 @@ namespace supersonicai
 			const game::ActionSequence & actions = next.actions;
 			for (const game::Action & action : actions) {
 				game.step(action);
+
+				//python::Image obs = game.obs();
+				//game::Info info = game.info();
+
+				game.render();
 			}
 
 			// --- 3.) Analyze Outcome of ActionSequence ---
